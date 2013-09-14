@@ -1,6 +1,8 @@
 hoverpie
 ========
 
+![hoverpie](http://f.cl.ly/items/3I2v3V3R0K341t1q2p08/Screen%20Shot%202013-09-13%20at%205.21.23%20PM.png)
+
 A simple pie chart builder based on EaselJS
 
 Dependencies
