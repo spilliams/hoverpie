@@ -4,7 +4,9 @@ HoverPie.config = {
   canvasPadding : 25,
   hoverScaleX : 1.1,
   hoverScaleY : 1.1,
+  
   labelRadiusFactor : 0.66,
+  labelHoverRadiusFactor : false,
   
   labelFontColor : "rgba(255,255,255,0.5)",
   labelFontFamily : "Arial",
@@ -66,12 +68,19 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
     container.addChild(sector);
     
     var labelRadius = r*config.labelRadiusFactor;
+    var labelHoverRadius = r*(config.labelHoverRadiusFactor || config.labelRadiusFactor);
     var labelAngle = cumulativeAngle + sectorAngle/2.0;
     var labelX = oX + labelRadius * Math.cos(labelAngle);
+    var labelHoverX = oX + labelHoverRadius * Math.cos(labelAngle);
     var labelY = oY + labelRadius * Math.sin(labelAngle);
+    var labelHoverY = oY + labelHoverRadius * Math.sin(labelAngle);
     if (typeof data[i].labelOffset != "undefined") {
       labelX += data[i].labelOffset.x;
       labelY += data[i].labelOffset.y;
+    }
+    if (typeof data[i].labelHoverOffset != "undefined") {
+      labelHoverX += data[i].labelHoverOffset.x;
+      labelHoverY += data[i].labelHoverOffset.y;
     }
     
     // Draw the title label
@@ -99,8 +108,8 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
       hoverLabel.scaleX = 1/config.hoverScaleX;
       hoverLabel.scaleY = 1/config.hoverScaleY;
       
-      hoverLabel.x = labelX;
-      hoverLabel.y = labelY;
+      hoverLabel.x = labelHoverX;
+      hoverLabel.y = labelHoverY;
       hoverLabel.name = "hoverLabel";
       hoverLabel.visible = false;
       
@@ -120,15 +129,15 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
       description.textBaseline = "top";
       description.textAlign = config.descriptionAlignment;
       
-      description.y = labelY + config.descriptionOffsetY;
+      description.y = labelHoverY + config.descriptionOffsetY;
       if (config.descriptionAlignment == "center") {
-        description.x = labelX + config.descriptionOffsetX;
+        description.x = labelHoverX + config.descriptionOffsetX;
       } else  {
         var hoverWidth = container.getChildByName("hoverLabel").getMeasuredWidth() / config.hoverScaleX;
         if (config.descriptionAlignment == "left") {
-          description.x = labelX - hoverWidth/2.0 + config.descriptionOffsetX;
+          description.x = labelHoverX - hoverWidth/2.0 + config.descriptionOffsetX;
         } else {
-          description.x = labelX + hoverWidth/2.0 + config.descriptionOffsetX;
+          description.x = labelHoverX + hoverWidth/2.0 + config.descriptionOffsetX;
         }
       }
       
