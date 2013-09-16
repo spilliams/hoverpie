@@ -29,8 +29,7 @@ Usage
       },
       ...
       ];
-    var canvas = $('#myCanvas');
-    HoverPie.make(canvas, data, {});
+    HoverPie.make('myCanvas', data, {});
     
 The third argument in `HoverPie.make(...)` refers to a `config` parameter. Acceptable config options:
 

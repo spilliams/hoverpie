@@ -15,17 +15,18 @@ HoverPie.config = {
   sectorStrokeColor : "#fff",
   sectorStrokeWidth : 2,
 };
-HoverPie.make = (function($canvas, data, config){
+HoverPie.make = (function(canvasId, data, config){
   
   config = $.extend({}, HoverPie.config, config);
   
   var percent2radians = (function(percent) { return percent*Math.PI*2; });
   
+  var $canvas = $("#"+canvasId);
   var ctx = $canvas[0].getContext("2d");
   var oX = ctx.canvas.width/2;
   var oY = ctx.canvas.height/2;
   var r = Math.min(oX,oY) - config.canvasPadding;
-  var stage = new createjs.Stage("myCanvas");
+  var stage = new createjs.Stage(canvasId);
   stage.enableMouseOver(20);
   
   var cumulativeAngle = 1.5*Math.PI;
