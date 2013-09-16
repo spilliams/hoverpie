@@ -19,7 +19,9 @@
       description : "red is good",
       config : {
         descriptionLineWidth: 10,
-        descriptionLineHeight: 1
+        descriptionLineHeight: 1,
+        descriptionOffsetX: 10,
+        descriptionOffsetY: 10
       }
     },{
       percentage : 0.2,
@@ -51,7 +53,7 @@
     var config = {
       hoverScaleX : 1.5,
       hoverScaleY : 1.5,
-      descriptionAlignment: "right"
+      descriptionAlignment: "left"
     };
   HoverPie.make("myCanvas", data, config);
   </script>

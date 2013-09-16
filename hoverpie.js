@@ -18,8 +18,8 @@ HoverPie.config = {
   descriptionFontWeight : false,
   descriptionFontSize : false,
   
-  descriptionOffsetY : 0,
   descriptionOffsetX : 0,
+  descriptionOffsetY : 0,
   descriptionAlignment : "center",
   descriptionLineWidth : false,
   descriptionLineHeight : false,
@@ -120,15 +120,15 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
       description.textBaseline = "top";
       description.textAlign = config.descriptionAlignment;
       
-      description.y = labelY;
+      description.y = labelY + config.descriptionOffsetY;
       if (config.descriptionAlignment == "center") {
-        description.x = labelX;
+        description.x = labelX + config.descriptionOffsetX;
       } else  {
         var hoverWidth = container.getChildByName("hoverLabel").getMeasuredWidth() / config.hoverScaleX;
         if (config.descriptionAlignment == "left") {
-          description.x = labelX - hoverWidth/2.0;
+          description.x = labelX - hoverWidth/2.0 + config.descriptionOffsetX;
         } else {
-          description.x = labelX + hoverWidth/2.0;
+          description.x = labelX + hoverWidth/2.0 + config.descriptionOffsetX;
         }
       }
       
