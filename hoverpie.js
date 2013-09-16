@@ -22,6 +22,7 @@ HoverPie.config = {
   descriptionOffsetX : 0,
   descriptionAlignment : "center",
   descriptionLineWidth : false,
+  descriptionLineHeight : false,
   
   sectorFillColor : "#666",
   sectorStrokeColor : "#fff",
@@ -133,6 +134,10 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
       
       if (config.descriptionLineWidth) {
         description.lineWidth = config.descriptionLineWidth;
+      }
+      
+      if (config.descriptionLineHeight) {
+        description.lineHeight = config.descriptionLineHeight;
       }
       
       description.scaleX = 1/config.hoverScaleX;
