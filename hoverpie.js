@@ -84,11 +84,11 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
     }
     
     // Draw the title label
-    if (data[i].label) {
+    if (data[i].labelText) {
       
       // One for unhovered sectors
       var font = config.labelFontWeight+" "+config.labelFontSize+"px "+config.labelFontFamily;
-      var unhoverLabel = new createjs.Text(data[i].label,font,config.labelFontColor);
+      var unhoverLabel = new createjs.Text(data[i].labelText,font,config.labelFontColor);
       unhoverLabel.textAlign = "center";
       unhoverLabel.textBaseline = "bottom";
       
@@ -101,7 +101,7 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
       
       // and one for hovered sectors
       var fontColor = config.labelHoverColor || config.labelFontColor;
-      var hoverLabel = new createjs.Text(data[i].label, font, fontColor);
+      var hoverLabel = new createjs.Text(data[i].labelText, font, fontColor);
       hoverLabel.textAlign = "center";
       hoverLabel.textBaseline = "bottom";
       // Because the container scales up but we don't want the hoverlabels to.
@@ -118,14 +118,14 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
     }
     
     // Draw the description label
-    if (data[i].description) {
+    if (data[i].descriptionText) {
       
       var fontWeight = config.descriptionFontWeight || config.labelFontWeight;
       var fontSize = config.descriptionFontSize || config.labelFontSize;
       var fontFamily = config.descriptionFontFamily || config.labelFontFamily;
       var fontColor = config.descriptionFontColor || config.labelHoverColor || config.labelFontColor;
       var font = fontWeight+" "+fontSize+"px "+fontFamily;
-      var description = new createjs.Text(data[i].description, font, fontColor);
+      var description = new createjs.Text(data[i].descriptionText, font, fontColor);
       description.textBaseline = "top";
       description.textAlign = config.descriptionAlignment;
       
@@ -232,7 +232,8 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
   // I have not yet tried using canvas clip(). Maybe that's
   // a better solution? Unsure.
   $canvas.mousemove(function(e){
-    var objs = stage.getObjectsUnderPoint(e.offsetX,e.offsetY);
+    // console.log(e);
+    var objs = stage.getObjectsUnderPoint(e.originalEvent.layerX,e.originalEvent.layerY);
     var ids = $.map(objs,function(e){ return e.parent.id; });
     
     // call hover() if ids does not match current hovers
