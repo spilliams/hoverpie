@@ -181,7 +181,7 @@ HoverPie.make = (function($canvas, data, config){
   // I have not yet tried using canvas clip(). Maybe that's
   // a better solution? Unsure.
   $canvas.mousemove(function(e){
-    var objs = stage.getObjectsUnderPoint(e.clientX,e.clientY);
+    var objs = stage.getObjectsUnderPoint(e.offsetX,e.offsetY);
     var ids = $.map(objs,function(e){ return e.parent.id; });
     
     // call hover() if ids does not match current hovers
