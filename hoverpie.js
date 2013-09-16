@@ -131,7 +131,7 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
         }
       }
       
-      if (typeof config.descriptionLineWidth != "undefined") {
+      if (config.descriptionLineWidth) {
         description.lineWidth = config.descriptionLineWidth;
       }
       
