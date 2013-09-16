@@ -62,7 +62,7 @@ The third argument in `HoverPie.make(...)` refers to a `config` parameter. Accep
       <td>scale for the y axis of a hovered pie sector</td>
     </tr>
     <tr>
-      <td><code>labelColor</code></td>
+      <td><code>labelFontColor</code></td>
       <td>CSS color</td>
       <td>rgba(255,255,255,0.5)</td>
       <td>Affects unhovered title label.</td>

@@ -5,12 +5,23 @@ HoverPie.config = {
   hoverScaleX : 1.1,
   hoverScaleY : 1.1,
   labelRadiusFactor : 0.66,
-  labelColor : "rgba(255,255,255,0.5)",
-  labelHoverColor : "rgba(255,255,255,1)",
+  
+  labelFontColor : "rgba(255,255,255,0.5)",
   labelFontFamily : "Arial",
   labelFontWeight : "normal",
   labelFontSize : 16,
+  
+  labelHoverColor : "rgba(255,255,255,1)",
+  
+  descriptionFontColor : false,
+  descriptionFontFamily : false,
+  descriptionFontWeight : false,
+  descriptionFontSize : false,
+  
+  descriptionOffsetY : 0,
+  descriptionOffsetX : 0,
   descriptionAlignment : "center",
+  
   sectorFillColor : "#666",
   sectorStrokeColor : "#fff",
   sectorStrokeWidth : 2,
@@ -66,7 +77,7 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
       
       // One for unhovered sectors
       var font = config.labelFontWeight+" "+config.labelFontSize+"px "+config.labelFontFamily;
-      var unhoverLabel = new createjs.Text(data[i].label,font,config.labelColor);
+      var unhoverLabel = new createjs.Text(data[i].label,font,config.labelFontColor);
       unhoverLabel.textAlign = "center";
       unhoverLabel.textBaseline = "bottom";
       
@@ -78,7 +89,8 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
       unhoverLabel.name = "label";
       
       // and one for hovered sectors
-      var hoverLabel = new createjs.Text(data[i].label, font, config.labelHoverColor);
+      var fontColor = config.labelHoverColor || config.labelFontColor;
+      var hoverLabel = new createjs.Text(data[i].label, font, fontColor);
       hoverLabel.textAlign = "center";
       hoverLabel.textBaseline = "bottom";
       // Because the container scales up but we don't want the hoverlabels to.
@@ -97,8 +109,12 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
     // Draw the description label
     if (data[i].description) {
       
-      var font = config.labelFontWeight+" "+config.labelFontSize+"px "+config.labelFontFamily;
-      var description = new createjs.Text(data[i].description, font, config.labelHoverColor);
+      var fontWeight = config.descriptionFontWeight || config.labelFontWeight;
+      var fontSize = config.descriptionFontSize || config.labelFontSize;
+      var fontFamily = config.descriptionFontFamily || config.labelFontFamily;
+      var fontColor = config.descriptionFontColor || config.labelHoverColor || config.labelFontColor;
+      var font = fontWeight+" "+fontSize+"px "+fontFamily;
+      var description = new createjs.Text(data[i].description, font, fontColor);
       description.textBaseline = "top";
       description.textAlign = config.descriptionAlignment;
       
@@ -211,6 +227,10 @@ HoverPie.make = (function(canvasId, data, canvasConfig){
         return;
       }
     }
+  });
+
+  $canvas.mouseout(function(e){
+    hover([]);
   });
 });
 
