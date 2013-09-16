@@ -24,24 +24,11 @@ Usage
       {
         percentage : 0.2,
         color : "#c05555",
-        label : "red"
-      },{
-        percentage : 0.2,
-        color : "#ce7b2b",
-        label : "orange"
-      },{
-        percentage : 0.2,
-        color : "#dba000",
-        label : "yellow"
-      },{
-        percentage : 0.2,
-        color : "#6e8c5f",
-        label : "green"
-      },{
-        percentage : 0.2,
-        color : "#0078bd",
-        label : "blue"
-      }];
+        label : "red",
+        labelOffset : { x : -4, y : 12 }
+      },
+      ...
+      ];
     var canvas = $('#myCanvas');
     HoverPie.make(canvas, data, {});
     
@@ -79,13 +66,13 @@ The third argument in `HoverPie.make(...)` refers to a `config` parameter. Accep
       <td><code>labelColor</code></td>
       <td>CSS color</td>
       <td>rgba(255,255,255,0.5)</td>
-      <td></td>
+      <td>Affects unhovered title label.</td>
     </tr>
     <tr>
       <td><code>labelHoverColor</code></td>
       <td>CSS color</td>
       <td>rgba(255,255,255,1)</td>
-      <td></td>
+      <td>Affects hovered title label as well as description label.</td>
     <tr>
       <td><code>labelRadiusFactor</code></td>
       <td>float</td>
@@ -96,18 +83,24 @@ The third argument in `HoverPie.make(...)` refers to a `config` parameter. Accep
       <td><code>labelFontFamily</code></td>
       <td>CSS font family</td>
       <td>Arial</td>
-      <td></td>
+      <td>Affects unhovered and hovered title labels, as well as description label.</td>
     </tr>
     <tr>
       <td><code>labelFontWeight</code></td>
       <td>CSS font weight</td>
       <td>normal</td>
-      <td></td>
+      <td>Affects unhovered and hovered title labels, as well as description label.</td>
     </tr>
     <tr>
       <td><code>labelFontSize</code></td>
       <td>pixel number</td>
       <td>16</td>
+      <td>Affects unhovered and hovered title labels, as well as description label.</td>
+    </tr>
+    <tr>
+      <td><code>descriptionAlignment</code></td>
+      <td>center, left or right</td>
+      <td>center</td>
       <td></td>
     </tr>
     <tr>

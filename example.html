@@ -16,12 +16,13 @@
       percentage : 0.2,
       fillColor : "#c05555",
       label : "red",
-      description : "red is good"
+      description : "red is good",
     },{
       percentage : 0.2,
       fillColor : "#ce7b2b",
       label : "orange",
-      description : "orange is good"
+      description : "orange is good",
+      labelOffset : { x : -10, y : 0}
     },{
       percentage : 0.2,
       fillColor : "#dba000",
@@ -38,7 +39,7 @@
       label : "blue",
       description : "blue is good"
     }];
-  HoverPie.make($("#myCanvas"), data, {});
+  HoverPie.make($("#myCanvas"), data, {descriptionAlignment: "left"});
   </script>
 </body>
 </html>

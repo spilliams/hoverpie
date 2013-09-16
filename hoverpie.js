@@ -10,6 +10,7 @@ HoverPie.config = {
   labelFontFamily : "Arial",
   labelFontWeight : "normal",
   labelFontSize : 16,
+  descriptionAlignment : "center",
   sectorFillColor : "#666",
   sectorStrokeColor : "#fff",
   sectorStrokeWidth : 2,
@@ -39,15 +40,21 @@ HoverPie.make = (function($canvas, data, config){
     var sectorFillColor = data[i].fillColor || config.sectorFillColor;
     var sectorStrokeColor = data[i].strokeColor || config.sectorStrokeColor;
     sector.graphics.moveTo(oX,oY).beginFill(sectorFillColor).setStrokeStyle(config.sectorStrokeWidth).beginStroke(sectorStrokeColor);
-    
     var sectorAngle = percent2radians(data[i].percentage);
     sector.graphics.arc(oX,oY,r,cumulativeAngle,cumulativeAngle+sectorAngle);
-    
     sector.graphics.closePath();
-    
     container.addChild(sector);
     
-    // Draw the label
+    var labelRadius = r*config.labelRadiusFactor;
+    var labelAngle = cumulativeAngle + sectorAngle/2.0;
+    var labelX = oX + labelRadius * Math.cos(labelAngle);
+    var labelY = oY + labelRadius * Math.sin(labelAngle);
+    if (typeof data[i].labelOffset != "undefined") {
+      labelX += data[i].labelOffset.x;
+      labelY += data[i].labelOffset.y;
+    }
+    
+    // Draw the title label
     if (data[i].label) {
       
       // One for unhovered sectors
@@ -59,16 +66,12 @@ HoverPie.make = (function($canvas, data, config){
       // The label is to be placed such that the center of its baseline
       // is tangent to a circle of radius r*config.labelRadiusFactor
       // and a line drawn along the center of the sector
-      var unhoverLabelRadius = r*config.labelRadiusFactor;
-      var unhoverLabelAngle = cumulativeAngle + sectorAngle/2.0;
-      var labelX = oX + unhoverLabelRadius * Math.cos(unhoverLabelAngle);
-      var labelY = oY + unhoverLabelRadius * Math.sin(unhoverLabelAngle);
       unhoverLabel.x = labelX;
       unhoverLabel.y = labelY;
       unhoverLabel.name = "label";
       
       // and one for hovered sectors
-      var hoverLabel = new createjs.Text(data[i].label,font,config.labelHoverColor);
+      var hoverLabel = new createjs.Text(data[i].label, font, config.labelHoverColor);
       hoverLabel.textAlign = "center";
       hoverLabel.textBaseline = "bottom";
       
@@ -79,6 +82,33 @@ HoverPie.make = (function($canvas, data, config){
       
       container.addChild(unhoverLabel);
       container.addChild(hoverLabel);
+    }
+    
+    // Draw the description label
+    if (data[i].description) {
+      
+      var font = config.labelFontWeight+" "+config.labelFontSize+"px "+config.labelFontFamily;
+      var description = new createjs.Text(data[i].description, font, config.labelHoverColor);
+      description.textBaseline = "top";
+      description.textAlign = config.descriptionAlignment;
+      
+      description.y = labelY;
+      if (config.descriptionAlignment == "center") {
+        description.x = labelX;
+      } else  {
+        
+        var hoverWidth = container.getChildByName("hoverLabel").getMeasuredWidth();
+        
+        if (config.descriptionAlignment == "left") {
+          description.x = labelX - hoverWidth/2.0;
+        } else {
+          description.x = labelX + hoverWidth/2.0;
+        }
+      }
+      
+      description.name = "description";
+      description.visible = false;
+      container.addChild(description);
     }
     
     // reposition scale origin and draw origin
@@ -112,10 +142,14 @@ HoverPie.make = (function($canvas, data, config){
     }
     for (var i=0; i<toUnhover.length; i++) {
       var child = stage.getChildByName(toUnhover[i]);
+      
+      
       child.scaleX = 1;
       child.scaleY = 1;
       child.getChildByName("label").visible = true;
       child.getChildByName("hoverLabel").visible = false;
+      child.getChildByName("description").visible = false;
+      
     }
     
     // and ids in ids that aren't in hovers need to be hovered
@@ -132,6 +166,7 @@ HoverPie.make = (function($canvas, data, config){
       child.scaleY = config.hoverScaleY;
       child.getChildByName("label").visible = false;
       child.getChildByName("hoverLabel").visible = true;
+      child.getChildByName("description").visible = true;
     }
     
     hovers = ids;
