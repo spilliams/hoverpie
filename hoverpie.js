@@ -75,6 +75,9 @@ HoverPie.make = (function(canvasId, data, config){
       var hoverLabel = new createjs.Text(data[i].label, font, config.labelHoverColor);
       hoverLabel.textAlign = "center";
       hoverLabel.textBaseline = "bottom";
+      // Because the container scales up but we don't want the hoverlabels to.
+      hoverLabel.scaleX = 1/config.hoverScaleX;
+      hoverLabel.scaleY = 1/config.hoverScaleY;
       
       hoverLabel.x = labelX;
       hoverLabel.y = labelY;
@@ -97,15 +100,16 @@ HoverPie.make = (function(canvasId, data, config){
       if (config.descriptionAlignment == "center") {
         description.x = labelX;
       } else  {
-        
-        var hoverWidth = container.getChildByName("hoverLabel").getMeasuredWidth();
-        
+        var hoverWidth = container.getChildByName("hoverLabel").getMeasuredWidth() / config.hoverScaleX;
         if (config.descriptionAlignment == "left") {
           description.x = labelX - hoverWidth/2.0;
         } else {
           description.x = labelX + hoverWidth/2.0;
         }
       }
+      
+      description.scaleX = 1/config.hoverScaleX;
+      description.scaleY = 1/config.hoverScaleY;
       
       description.name = "description";
       description.visible = false;
@@ -151,6 +155,7 @@ HoverPie.make = (function(canvasId, data, config){
       child.getChildByName("hoverLabel").visible = false;
       child.getChildByName("description").visible = false;
       
+      
     }
     
     // and ids in ids that aren't in hovers need to be hovered
@@ -162,12 +167,16 @@ HoverPie.make = (function(canvasId, data, config){
       }
     }
     for (var i=0; i<toHover.length; i++) {
-      var child = stage.getChildByName(toHover[i]);
-      child.scaleX = config.hoverScaleX;
-      child.scaleY = config.hoverScaleY;
-      child.getChildByName("label").visible = false;
-      child.getChildByName("hoverLabel").visible = true;
-      child.getChildByName("description").visible = true;
+      
+      
+      var container = stage.getChildByName(toHover[i]);
+      container.scaleX = config.hoverScaleX;
+      container.scaleY = config.hoverScaleY;
+      container.getChildByName("label").visible = false;
+      container.getChildByName("hoverLabel").visible = true;
+      container.getChildByName("description").visible = true;
+      
+      
     }
     
     hovers = ids;

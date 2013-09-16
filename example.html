@@ -39,7 +39,12 @@
       label : "blue",
       description : "blue is good"
     }];
-  HoverPie.make("myCanvas", data, {descriptionAlignment: "left"});
+    var config = {
+      hoverScaleX : 1.5,
+      hoverScaleY : 1.5,
+      descriptionAlignment: "right"
+    };
+  HoverPie.make("myCanvas", data, config);
   </script>
 </body>
 </html>
