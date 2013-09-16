@@ -15,9 +15,9 @@ HoverPie.config = {
   sectorStrokeColor : "#fff",
   sectorStrokeWidth : 2,
 };
-HoverPie.make = (function(canvasId, data, config){
+HoverPie.make = (function(canvasId, data, canvasConfig){
   
-  config = $.extend({}, HoverPie.config, config);
+  config = $.extend({}, HoverPie.config, canvasConfig);
   
   var percent2radians = (function(percent) { return percent*Math.PI*2; });
   
@@ -32,6 +32,12 @@ HoverPie.make = (function(canvasId, data, config){
   var cumulativeAngle = 1.5*Math.PI;
   
   for (var i=0; i<data.length; i++) {
+    
+    if (typeof data[i].config != "undefined") {
+      config = $.extend({}, HoverPie.config, canvasConfig, data[i].config);
+    } else {
+      config = $.extend({}, HoverPie.config, canvasConfig);
+    }
     
     var sector = new createjs.Shape();
     var container = new createjs.Container();
