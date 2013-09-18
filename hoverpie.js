@@ -231,8 +231,8 @@ HoverPie.make = (function($canvas, data, configParam){
       
       
       var container = stage.getChildByName(toHover[i]);
-      container.scaleX = config.hoverScale;
-      container.scaleY = config.hoverScale;
+      container.scaleX = baseConfig.hoverScale;
+      container.scaleY = baseConfig.hoverScale;
       container.getChildByName("label").visible = false;
       container.getChildByName("hoverLabel").visible = true;
       container.getChildByName("description").visible = true;
