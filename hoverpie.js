@@ -30,28 +30,43 @@ HoverPie.config = {
   sectorStrokeColor : "#fff",
   sectorStrokeWidth : 2,
 };
-HoverPie.make = (function(canvasId, data, canvasConfig){
+HoverPie.make = (function($canvas, data, configParam){
   
-  config = $.extend({}, HoverPie.config, canvasConfig);
+  var canvasConfig = {};
+  var magicWord = "hoverpieConfig";
+  for (var originalKey in $canvas.data()) {
+    var newKey = originalKey;
+    if (newKey.indexOf(magicWord) == 0) {
+      newKey=newKey.slice(magicWord.length);
+      newKey=newKey[0].toLowerCase() + newKey.slice(1);
+      canvasConfig[newKey] = $canvas.data(originalKey);
+    }
+  }
+  // Start with empty array (so we don't overwrite anything--for safety)
+  // then extend it with HoverPie defaults
+  // then extend it with the config param
+  // then extend it with any data params from the <canvas> element
+  var baseConfig = $.extend({}, HoverPie.config, configParam, canvasConfig);
+  
   
   var percent2radians = (function(percent) { return percent*Math.PI*2; });
   
-  var $canvas = $("#"+canvasId);
   var ctx = $canvas[0].getContext("2d");
   var oX = ctx.canvas.width/2;
   var oY = ctx.canvas.height/2;
-  var r = Math.min(oX,oY) - config.canvasPadding;
-  var stage = new createjs.Stage(canvasId);
+  var r = Math.min(oX,oY) - baseConfig.canvasPadding;
+  var stage = new createjs.Stage($canvas.attr('id'));
   stage.enableMouseOver(20);
   
   var cumulativeAngle = 1.5*Math.PI;
   
   for (var i=0; i<data.length; i++) {
     
+    // Extend config with custom config for the datapoint, if it exists
     if (typeof data[i].config != "undefined") {
-      config = $.extend({}, HoverPie.config, canvasConfig, data[i].config);
+      config = $.extend({}, baseConfig, data[i].config);
     } else {
-      config = $.extend({}, HoverPie.config, canvasConfig);
+      config = baseConfig;
     }
     
     var sector = new createjs.Shape();
