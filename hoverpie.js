@@ -30,6 +30,11 @@ HoverPie.config = {
   sectorStrokeColor : "#fff",
   sectorStrokeWidth : 2,
 };
+HoverPie.makeAll = (function(selector, data, canvasConfig){
+  for (var i=0; i<$(selector).length; i++) {
+    HoverPie.make($("#"+$(selector[i]).attr('id')), data, canvasConfig);
+  }
+});
 HoverPie.make = (function($canvas, data, configParam){
   
   var canvasConfig = {};
