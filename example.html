@@ -9,8 +9,7 @@
 </head>
 <body>
 
-  <canvas id="myCanvas" width="350" height="350"></canvas>
-  <canvas id="myCanvas2" width="100" height="100" data-hoverpie-config-canvas-padding="0"></canvas>
+  <canvas id="myCanvas" width="300" height="300"></canvas>
   
   <script type="text/javascript">
   var data = [
@@ -18,51 +17,34 @@
       percentage : 0.2,
       fillColor : "#c05555",
       labelText : "red",
-      descriptionText : "red is good",
-      config : {
-        descriptionLineWidth: 10,
-        descriptionLineHeight: 1,
-        descriptionOffsetX: 10,
-        descriptionOffsetY: 10
-      }
+      descriptionText : "description",
     },{
       percentage : 0.2,
       fillColor : "#ce7b2b",
       labelText : "orange",
-      descriptionText : "orange is good",
-      labelOffset : { x : 0, y : 0},
-      labelHoverOffset : { x : 0, y : 0},
-      config : {
-        labelRadiusFactor: 0.25,
-        labelHoverRadiusFactor: 0.75
-      }
+      descriptionText : "description",
     },{
       percentage : 0.2,
       fillColor : "#dba000",
       labelText : "yellow",
-      descriptionText : "yellow is good",
-      config : {
-        labelFontColor : "red",
-        labelHoverColor : "green",
-        descriptionLineWidth: 30
-      }
+      descriptionText : "description",
     },{
       percentage : 0.2,
       fillColor : "#6e8c5f",
       labelText : "green",
-      descriptionText : "green is good"
+      descriptionText : "description"
     },{
       percentage : 0.2,
       fillColor : "#0078bd",
       labelText : "blue",
-      descriptionText : "blue is good"
+      descriptionText : "description"
     }];
     var config = {
+      canvasPadding: 50,
       hoverScaleX : 1.5,
-      hoverScaleY : 1.5,
-      descriptionAlignment: "left"
+      hoverScaleY : 1.5
     };
-  HoverPie.makeAll($("canvas"), data, config);
+  HoverPie.make($("canvas"), data, config);
   </script>
 </body>
 </html>

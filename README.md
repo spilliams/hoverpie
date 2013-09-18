@@ -24,6 +24,12 @@ Usage
 ###HTML
 
     <canvas id="myCanvas" width="350" height="350"></canvas>
+    
+Note that you may pass in config parameters through the `<canvas>`'s data attributes:
+
+    <canvas id="myCanvas" width="350" height="350" data-hoverpie-config-label-radius-factor=0.8>
+    
+See below for more information about config options.
 
 ###javascript
 
@@ -34,9 +40,13 @@ Usage
         labelText : "red"
       },
       ...
-      ];
-    HoverPie.make('myCanvas', data, {});
+    ];
+    HoverPie.make($('#myCanvas'), data, {});
     
+You can also make a group of pies at once using the same data and config!
+
+    HoverPie.makeAll($('canvas'), data, config);
+
 Each data point you pass in may contain any of the following options:
 <table>
   <thead>
@@ -134,12 +144,6 @@ The third argument in `HoverPie.make(...)` refers to a `config` parameter. Accep
       <td>Affects unhovered title label.</td>
     </tr>
     <tr>
-      <td><code>labelHoverColor</code></td>
-      <td>CSS color</td>
-      <td>rgba(255,255,255,1)</td>
-      <td>Affects hovered title label. If false, falls back to <code>labelFontColor</code>.</td>
-    </tr>
-    <tr>
       <td><code>labelFontFamily</code></td>
       <td>CSS font family</td>
       <td>Arial</td>
@@ -156,6 +160,12 @@ The third argument in `HoverPie.make(...)` refers to a `config` parameter. Accep
       <td>pixel number</td>
       <td>16</td>
       <td>Affects unhovered and hovered title labels.</td>
+    </tr>
+    <tr>
+      <td><code>labelHoverColor</code></td>
+      <td>CSS color</td>
+      <td>rgba(255,255,255,1)</td>
+      <td>Affects hovered title label. If false, falls back to <code>labelFontColor</code>.</td>
     </tr>
     <tr>
       <td><code>descriptionFontColor</code></td>

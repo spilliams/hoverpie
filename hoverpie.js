@@ -53,7 +53,7 @@ HoverPie.make = (function($canvas, data, configParam){
   // then extend it with any data params from the <canvas> element
   var baseConfig = $.extend({}, HoverPie.config, configParam, canvasConfig);
   
-  
+  // helper functions
   var percent2radians = (function(percent) { return percent*Math.PI*2; });
   
   var ctx = $canvas[0].getContext("2d");
