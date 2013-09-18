@@ -153,7 +153,7 @@ HoverPie.make = (function($canvas, data, configParam){
       if (config.descriptionAlignment == "center") {
         description.x = labelHoverX + config.descriptionOffsetX;
       } else  {
-        var hoverWidth = container.getChildByName("hoverLabel").getMeasuredWidth() / config.hoverScaleX;
+        var hoverWidth = container.getChildByName("hoverLabel").getMeasuredWidth() / config.hoverScale;
         if (config.descriptionAlignment == "left") {
           description.x = labelHoverX - hoverWidth/2.0 + config.descriptionOffsetX;
         } else {
