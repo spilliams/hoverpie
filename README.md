@@ -114,16 +114,16 @@ The third argument in `HoverPie.make(...)` refers to a `config` parameter. Accep
       <td>pixels between unhovered pie and canvas edge</td>
     </tr>
     <tr>
-      <td><code>hoverScaleX</code></td>
-      <td>float</td>
-      <td>1.1</td>
-      <td>scale for the x axis of a hovered pie sector</td>
+      <td><code>hoverEnabled</code></td>
+      <td>boolean</td>
+      <td>true</td>
+      <td></td>
     </tr>
     <tr>
-      <td><code>hoverScaleY</code></td>
+      <td><code>hoverScale</code></td>
       <td>float</td>
       <td>1.1</td>
-      <td>scale for the y axis of a hovered pie sector</td>
+      <td>scale for the hovered pie sector</td>
     </tr>
     <tr>
       <td><code>labelRadiusFactor</code></td>

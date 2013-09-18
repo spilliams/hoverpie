@@ -2,8 +2,8 @@ var HoverPie = {};
 
 HoverPie.config = {
   canvasPadding : 25,
-  hoverScaleX : 1.1,
-  hoverScaleY : 1.1,
+  hoverEnabled : true,
+  hoverScale : 1.1,
   
   labelRadiusFactor : 0.66,
   labelHoverRadiusFactor : false,
@@ -125,8 +125,8 @@ HoverPie.make = (function($canvas, data, configParam){
       hoverLabel.textAlign = "center";
       hoverLabel.textBaseline = "bottom";
       // Because the container scales up but we don't want the hoverlabels to.
-      hoverLabel.scaleX = 1/config.hoverScaleX;
-      hoverLabel.scaleY = 1/config.hoverScaleY;
+      hoverLabel.scaleX = 1/config.hoverScale;
+      hoverLabel.scaleY = 1/config.hoverScale;
       
       hoverLabel.x = labelHoverX;
       hoverLabel.y = labelHoverY;
@@ -169,8 +169,8 @@ HoverPie.make = (function($canvas, data, configParam){
         description.lineHeight = config.descriptionLineHeight;
       }
       
-      description.scaleX = 1/config.hoverScaleX;
-      description.scaleY = 1/config.hoverScaleY;
+      description.scaleX = 1/config.hoverScale;
+      description.scaleY = 1/config.hoverScale;
       
       description.name = "description";
       description.visible = false;
@@ -231,8 +231,8 @@ HoverPie.make = (function($canvas, data, configParam){
       
       
       var container = stage.getChildByName(toHover[i]);
-      container.scaleX = config.hoverScaleX;
-      container.scaleY = config.hoverScaleY;
+      container.scaleX = config.hoverScale;
+      container.scaleY = config.hoverScale;
       container.getChildByName("label").visible = false;
       container.getChildByName("hoverLabel").visible = true;
       container.getChildByName("description").visible = true;
@@ -252,6 +252,7 @@ HoverPie.make = (function($canvas, data, configParam){
   // I have not yet tried using canvas clip(). Maybe that's
   // a better solution? Unsure.
   $canvas.mousemove(function(e){
+    if (!baseConfig.hoverEnabled) { return; }
     // console.log(e);
     var objs = stage.getObjectsUnderPoint(e.originalEvent.layerX,e.originalEvent.layerY);
     var ids = $.map(objs,function(e){ return e.parent.id; });
